@@ -126,7 +126,7 @@
 
     <div class="modal-backdrop" id="recapModal" hidden>
       <section
-        class="recap-modal"
+        class="recap-modal recap-story-modal"
         role="dialog"
         aria-modal="true"
         aria-labelledby="recapTitle"
@@ -134,36 +134,89 @@
         <button class="modal-close" id="closeRecap" aria-label="Close recap">
           ×
         </button>
-        <div class="recap-confetti" aria-hidden="true">✦</div>
-        <p class="eyebrow centered">YOUR YEAR IN REVIEW</p>
-        <h2 id="recapTitle">Your 2026 Annual Performance Review Recap</h2>
-        <p class="modal-intro">
-          Take a moment to celebrate your progress and reflect on what you
-          achieved.
-        </p>
-        <div class="recap-score">
-          <strong>4.2<span>/5</span></strong
-          ><small>Overall performance rating</small>
-        </div>
-        <div class="recap-stats">
-          <div><strong>5</strong><span>Achievements</span></div>
-          <div><strong>80%</strong><span>Goals achieved</span></div>
-          <div><strong>3</strong><span>Key strengths</span></div>
-        </div>
-        <div class="recap-highlight">
-          <span class="highlight-icon">✧</span>
-          <div>
-            <strong>A note from your manager</strong>
-            <p>
+        <div
+          class="recap-story-progress"
+          id="recapProgress"
+          aria-label="Recap progress"
+        ></div>
+        <div class="recap-story-scroll" id="recapStory">
+          <section class="recap-slide recap-cover">
+            <span class="recap-kicker">YOUR YEAR IN REVIEW</span>
+            <div class="recap-sparkle">✦</div>
+            <p class="eyebrow centered">PERFORMANCE RECAP</p>
+            <h2 id="recapTitle">Your 2026 Performance Recap</h2>
+            <p class="modal-intro">
+              A look back at the progress, impact, and moments that made this
+              year yours.
+            </p>
+            <div class="recap-score">
+              <strong id="recapRating">4.2<span>/5</span></strong
+              ><small>Overall performance rating</small>
+            </div>
+            <span class="recap-scroll-hint"
+              >Scroll to explore <span>↓</span></span
+            >
+          </section>
+          <section class="recap-slide recap-achievements">
+            <span class="recap-kicker">01 · WHAT YOU ACHIEVED</span>
+            <h2>Small steps.<br />Meaningful impact.</h2>
+            <div class="recap-big-stat">
+              <strong id="recapGoals">80%</strong
+              ><span>of your goals achieved</span>
+            </div>
+            <div class="recap-achievement-list" id="recapAchievementList"></div>
+          </section>
+          <section class="recap-slide recap-feedback">
+            <span class="recap-kicker">02 · WORDS THAT MATTER</span>
+            <h2>Your impact,<br />through their eyes.</h2>
+            <div class="recap-quote-mark">“</div>
+            <blockquote id="recapFeedbackQuote">
               Consistently demonstrated ownership and collaboration throughout
               the review cycle.
+            </blockquote>
+            <p class="recap-feedback-author">— Alex Morgan · Manager</p>
+            <div class="recap-tags">
+              <span>Ownership</span><span>Collaboration</span
+              ><span>Growth mindset</span>
+            </div>
+          </section>
+          <section class="recap-slide recap-next">
+            <span class="recap-kicker">03 · LOOKING AHEAD</span>
+            <h2>Make next year<br />even better.</h2>
+            <p class="modal-intro">
+              A few goals to help you turn this year's learning into next year's
+              progress.
             </p>
-          </div>
+            <div class="recap-next-goals" id="recapNextGoals"></div>
+            <button
+              class="button button-primary button-full"
+              id="viewRecapDetails"
+            >
+              View full performance
+            </button>
+            <button class="text-button" id="dismissRecap">Close recap</button>
+          </section>
         </div>
-        <button class="button button-primary button-full" id="viewRecapDetails">
-          View full performance
+      </section>
+    </div>
+
+    <div class="modal-backdrop" id="performanceDetailModal" hidden>
+      <section
+        class="detail-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="performanceDetailTitle"
+      >
+        <button
+          class="modal-close"
+          id="closePerformanceDetail"
+          aria-label="Close details"
+        >
+          ×
         </button>
-        <button class="text-button" id="dismissRecap">Maybe later</button>
+        <p class="eyebrow">PERFORMANCE DETAILS</p>
+        <h2 id="performanceDetailTitle">Overall performance</h2>
+        <div id="performanceDetailContent"></div>
       </section>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
