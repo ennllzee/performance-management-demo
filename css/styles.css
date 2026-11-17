@@ -1,0 +1,34 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f6fa;
+    color: #222;
+}
+
+header {
+    padding: 32px;
+    background: #ffffff;
+}
+
+main {
+    padding: 32px;
+}
+
+.role-container {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.role-container a {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    color: #276490;
+    text-decoration: none;
+}
