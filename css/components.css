@@ -1,0 +1,149 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 11px 16px;
+  font-weight: 700;
+  background: var(--primary);
+  color: white;
+  transition: 0.18s;
+}
+.btn:hover {
+  background: var(--primary-hover);
+}
+.btn.secondary {
+  background: white;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn.secondary:hover {
+  background: #f8f8f8;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.pill {
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: #fff1e8;
+  color: #ad4e1d;
+  font-size: 12px;
+  font-weight: 700;
+}
+.card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+}
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.stat {
+  background: var(--bg);
+  padding: 18px;
+  border-radius: 14px;
+}
+.stat strong {
+  display: block;
+  font-size: 25px;
+}
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.field label {
+  font-size: 12px;
+  font-weight: 700;
+}
+.field select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: white;
+  padding: 9px 12px;
+  min-width: 165px;
+}
+.notice {
+  background: #fff8eb;
+  border: 1px solid #f3dcae;
+  padding: 14px;
+  border-radius: 12px;
+  color: #80591e;
+}
+.demo-bar {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.demo-bar strong {
+  font-size: 12px;
+}
+.demo-bar .field {
+  flex-direction: row;
+  align-items: center;
+}
+.demo-bar .field label {
+  white-space: nowrap;
+}
+.demo-bar .btn {
+  padding: 8px 12px;
+  font-size: 12px;
+}
+.empty-state {
+  display: grid;
+  gap: 12px;
+  place-items: start;
+}
+.empty-state p {
+  color: var(--muted);
+  max-width: 650px;
+}
+.tag-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+.tag {
+  background: #f5f6f8;
+  padding: 6px 10px;
+  border-radius: 9px;
+  color: #5d6773;
+  font-size: 12px;
+}
+@media (max-width: 700px) {
+  .card {
+    padding: 18px;
+  }
+  .stat-grid {
+    grid-template-columns: 1fr;
+  }
+  .demo-bar {
+    align-items: stretch;
+  }
+  .demo-bar .field {
+    flex: 1 1 170px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .field select {
+    min-width: 0;
+    width: 100%;
+  }
+}
