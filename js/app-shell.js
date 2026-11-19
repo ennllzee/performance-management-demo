@@ -35,7 +35,7 @@
       : `<a class="mobile-evaluation" href="${evalHref}" aria-label="${cycleName}" title="${cycleName}">${icon("clipboard-check")}<span>${cycleName}</span></a>`;
   root.innerHTML = `<div class="app"><aside class="sidebar" aria-label="Primary navigation"><a href="../../index.html" class="side-logo" aria-label="empeo home"><span>empeo</span></a><nav class="side-nav">${links()}</nav><div class="side-footer">${innerEvaluation}<div class="profile">${profile}</div></div></aside>${evaluation}<header class="mobile-header" id="mobileHeader"><div class="mobile-top"><a href="../../index.html" class="mobile-brand">empeo</a>${mobileEvaluation}</div><div class="mobile-profile"><div class="profile">${mobileProfile}</div></div><nav class="mobile-nav" aria-label="Mobile navigation">${links()}</nav></header><main class="content" id="mainContent"><header class="page-header"><div><h1 id="pageTitle"></h1><p id="pageSubtitle"></p></div><span class="pill" id="cycleBadge"></span></header><div id="pageContent"></div></main></div>`;
   const header = document.getElementById("mobileHeader");
-  const update = () => header.classList.toggle("compact", window.scrollY > 95);
+  const update = () => header.classList.add("compact");
   window.addEventListener("scroll", update, { passive: true });
   update();
   const sidebar = document.querySelector(".sidebar");

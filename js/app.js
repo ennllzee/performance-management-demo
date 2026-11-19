@@ -14,6 +14,30 @@
       : role === "manager"
         ? "Manage your performance and support your team"
         : "Track your progress and complete your reviews";
+  // Shared review period in every role's cycle banner, including rerendered content.
+  const addCyclePeriods = () => {
+    const root = document.getElementById("pageContent");
+    if (!root) return;
+    root.querySelectorAll(".pm-hero, .pm-assessment-banner").forEach((el) => {
+      if (
+        el.querySelector(".pm-cycle-period") ||
+        !/review cycle|assessment|annual performance/i.test(el.textContent)
+      )
+        return;
+      const span = document.createElement("span");
+      span.className = "pm-cycle-period";
+      span.textContent = "Active period: January 1 – December 31, 2026";
+      const target = el.querySelector("p");
+      if (target) target.insertAdjacentElement("afterend", span);
+      else el.appendChild(span);
+    });
+  };
+  const content = document.getElementById("pageContent");
+  if (content && window.MutationObserver) {
+    const observer = new MutationObserver(addCyclePeriods);
+    observer.observe(content, { childList: true, subtree: true });
+    addCyclePeriods();
+  }
   const key = "pm-demo-settings-v1";
   let state = { cycle: "active", submission: "pending" };
   try {
@@ -22,13 +46,35 @@
   const demo = document.createElement("section");
   demo.className = "demo-bar";
   demo.setAttribute("aria-label", "Demo settings");
-  demo.innerHTML = `<strong>⚙ Demo Settings</strong><div class="field"><label for="roleSelect">Demo as</label><select id="roleSelect"><option value="employee">Employee</option><option value="manager">Manager</option><option value="hr">HR</option></select></div><div class="field"><label for="cycleSelect">Cycle</label><select id="cycleSelect"><option value="active">In Review Cycle</option><option value="none">No Review Cycle</option></select></div><div class="field" id="submissionField"><label for="submissionSelect">Assessment</label><select id="submissionSelect"><option value="pending">Not Submitted</option><option value="submitted">Submitted</option></select></div><a class="btn secondary" href="../../index.html">Home</a>`;
+  demo.innerHTML = `<strong class="demo-heading">⚙ Demo Settings</strong><div class="field"><label for="roleSelect">Demo as</label><select id="roleSelect"><option value="employee">Employee</option><option value="manager">Manager</option><option value="hr">HR</option></select></div><div class="field"><label for="cycleSelect">Cycle</label><select id="cycleSelect"><option value="active">In Review Cycle</option><option value="none">No Review Cycle</option></select></div><div class="field" id="submissionField"><label for="submissionSelect">Assessment</label><select id="submissionSelect"><option value="pending">Not Submitted</option><option value="submitted">Submitted</option></select></div><a class="btn secondary demo-home" href="../../index.html">Home</a>`;
   body.insertBefore(demo, body.firstChild);
-  const setDemoHeight = () =>
-    document.documentElement.style.setProperty(
-      "--demo-height",
-      `${demo.getBoundingClientRect().height}px`,
-    );
+  // Demo Settings float above all app layers and reveal on upward scroll.
+  demo.style.position = "sticky";
+  demo.style.top = "0";
+  demo.style.left = "0";
+  demo.style.right = "0";
+  demo.style.zIndex = "2000";
+  demo.style.transition = "transform .24s ease";
+  demo.style.willChange = "transform";
+  let previousScroll = window.scrollY;
+  let visible = true;
+  const trackDemo = () => {
+    const y = window.scrollY;
+    const shouldShow = y < 15 || y < previousScroll - 3;
+    const shouldHide = y > previousScroll + 3 && y > 60;
+    if (shouldShow && !visible) {
+      visible = true;
+      demo.style.transform = "translateY(0)";
+    }
+    if (shouldHide && visible) {
+      visible = false;
+      demo.style.transform = "translateY(-105%)";
+    }
+    previousScroll = y;
+  };
+  window.addEventListener("scroll", trackDemo, { passive: true });
+  document.documentElement.style.setProperty("--demo-height", "0px");
+  const setDemoHeight = () => {};
   setDemoHeight();
   if (window.ResizeObserver) new ResizeObserver(setDemoHeight).observe(demo);
   window.addEventListener("resize", setDemoHeight);
@@ -52,6 +98,8 @@
     save();
   });
   submissionSelect.addEventListener("change", () => {
+    if (state.submission !== submissionSelect.value)
+      sessionStorage.removeItem("pm-eval-forms-v2");
     state.submission = submissionSelect.value;
     save();
   });
@@ -112,12 +160,12 @@
   };
   function render() {
     const info = descriptions[page] || [title];
-    document.getElementById("cycleBadge").textContent =
-      state.cycle === "none"
-        ? "No Active Cycle"
-        : state.submission === "submitted"
-          ? "In Review Cycle · Submitted"
-          : "In Review Cycle";
+    const cycleBadge = document.getElementById("cycleBadge");
+    if (cycleBadge) {
+      cycleBadge.textContent = "";
+      cycleBadge.hidden = true;
+      cycleBadge.style.display = "none";
+    }
     demo
       .querySelector("#submissionField")
       .classList.toggle("hidden", state.cycle === "none" || role === "hr");
@@ -131,4 +179,6 @@
       .join("")}</div></section></div>`;
   }
   render();
+  window.PM_EMPLOYEE_CONTENT?.render();
+  window.PM_MANAGER_CONTENT?.render();
 })();

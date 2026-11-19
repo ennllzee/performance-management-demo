@@ -607,3 +607,35 @@
     margin-top: 3px;
   }
 }
+
+/* Mobile navigation stays in its compact sticky design. */
+@media (max-width: 760px) {
+  .mobile-header {
+    position: sticky;
+    top: 0;
+  }
+  .mobile-header .mobile-profile .profile-copy {
+    display: none !important;
+  }
+  .mobile-header .mobile-profile .avatar {
+    width: 32px;
+    height: 32px;
+  }
+  .mobile-header .mobile-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .mobile-header .mobile-nav .nav-link {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-width: max-content;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+  }
+  .mobile-header .mobile-nav .nav-label {
+    white-space: nowrap !important;
+  }
+}
